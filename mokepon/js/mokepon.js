@@ -1,28 +1,55 @@
 function seleccionarMascota() {
 
+    let hipoge = document.getElementById("hipodoge");
+    let capipepo = document.getElementById("capipepo");
+    let ratigueya = document.getElementById("ratigueya");
+    let langoatelvis = document.getElementById("langoatelvis");
+    let tucapalma = document.getElementById("tucapalma");
+    let pydos = document.getElementById("pydos");
+    
+
     if (hipoge.checked) {
-        alert("Has seleccionado a Hipodoge");
+        document.getElementById("mascota-jugador").innerHTML = "Hipodoge";
+        
     } else if (capipepo.checked) {
-        alert("Has seleccionado a Capipepo");
+        document.getElementById("mascota-jugador").innerHTML = "Capipepo";
     } else if (ratigueya.checked) {
-        alert("Has seleccionado a Ratigueya");
+        document.getElementById("mascota-jugador").innerHTML = "Ratigueya";
     } else if (langoatelvis.checked) {
-        alert("Has seleccionado a Langoatelvis");
+        document.getElementById("mascota-jugador").innerHTML = "Langoatelvis";
     } else if (tucapalma.checked) {
-        alert("Has seleccionado a Tucapalma");
+        document.getElementById("mascota-jugador").innerHTML = "Tucapalma";
     } else if (pydos.checked) {
-        alert("Has seleccionado a Pydos");
+        document.getElementById("mascota-jugador").innerHTML = "Pydos";
     } else {
         alert("Por favor selecciona una mascota antes de continuar.");
     }
+    seleccionarMascotaEnemiga();
 }
+
+function seleccionarMascotaEnemiga() {
+    let ataqueAleatorio = aleatorio(1, 6);
+    let mascotaEnemigo = "";
+
+    if (ataqueAleatorio == 1) {
+        document.getElementById("mascota-enemigo").innerHTML = "Hipodoge";
+    } else if (ataqueAleatorio == 2) {
+        document.getElementById("mascota-enemigo").innerHTML = "Capipepo";
+    } else if (ataqueAleatorio == 3) {
+        document.getElementById("mascota-enemigo").innerHTML = "Ratigueya";
+    } else if (ataqueAleatorio == 4) {
+        document.getElementById("mascota-enemigo").innerHTML = "Langoatelvis";
+    } else if (ataqueAleatorio == 5) {
+        document.getElementById("mascota-enemigo").innerHTML = "Tucapalma";
+    } else {
+        document.getElementById("mascota-enemigo").innerHTML = "Pydos";
+    }
+}
+
+  function aleatorio(min, max) {
+        return Math.floor(Math.random() * (max - min + 1) + min)
+      }
 
 let mascotaSeleccionada = document.getElementById("boton-mascota");
 mascotaSeleccionada.addEventListener("click", seleccionarMascota);
 
-let hipoge = document.getElementById("hipodoge");
-let capipepo = document.getElementById("capipepo");
-let ratigueya = document.getElementById("ratigueya");
-let langoatelvis = document.getElementById("langoatelvis");
-let tucapalma = document.getElementById("tucapalma");
-let pydos = document.getElementById("pydos");
