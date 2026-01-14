@@ -1,4 +1,17 @@
-function seleccionarMascota() {
+ let ataqueJugador
+
+function iniciarJuego() {
+    let botonMascotaJugador = document.getElementById('boton-mascota')
+    botonMascotaJugador.addEventListener('click', seleccionarMascotaJugador)
+    let btnFuego = document.getElementById('boton-fuego')
+    btnFuego.addEventListener('click', ataqueFuego)
+    let btnAgua = document.getElementById('boton-agua')
+    btnAgua.addEventListener('click', ataqueAgua)
+    let btnTierra = document.getElementById('boton-tierra')
+    btnTierra.addEventListener('click', ataqueTierra)
+}
+
+function seleccionarMascotaJugador() {
 
     let hipoge = document.getElementById("hipodoge");
     let capipepo = document.getElementById("capipepo");
@@ -24,6 +37,7 @@ function seleccionarMascota() {
     } else {
         alert("Por favor selecciona una mascota antes de continuar.");
     }
+
     seleccionarMascotaEnemiga();
 }
 
@@ -46,10 +60,25 @@ function seleccionarMascotaEnemiga() {
     }
 }
 
+ function ataqueFuego(){
+    ataqueJugador = 'FUEGO|'
+    alert(ataqueJugador)
+ }
+
+ function ataqueAgua(){
+    ataqueJugador = 'AGUA|'
+     alert(ataqueJugador)
+ }
+
+ function ataqueTierra(){
+    ataqueJugador = 'TIERRA|'
+     alert(ataqueJugador)
+ }
+
   function aleatorio(min, max) {
         return Math.floor(Math.random() * (max - min + 1) + min)
       }
 
 let mascotaSeleccionada = document.getElementById("boton-mascota");
-mascotaSeleccionada.addEventListener("click", seleccionarMascota);
+mascotaSeleccionada.addEventListener("click", seleccionarMascotaJugador);
 
