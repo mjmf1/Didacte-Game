@@ -1,5 +1,7 @@
 let ataqueJugador;
 let ataqueEnemigo;
+let mascotaJugador; // Agregada como variable global
+let mascotaEnemigo; // Agregada como variable global
 
 function iniciarJuego() {
     // Botones de mascota y ataques
@@ -20,8 +22,7 @@ function seleccionarMascotaJugador() {
     let tucapalma = document.getElementById("tucapalma");
     let pydos = document.getElementById("pydos");
 
-    let mascotaJugador = "";
-
+    // Eliminamos 'let' para usar la variable global
     if (hipoge.checked) mascotaJugador = "Hipodoge";
     else if (capipepo.checked) mascotaJugador = "Capipepo";
     else if (ratigueya.checked) mascotaJugador = "Ratigueya";
@@ -40,8 +41,8 @@ function seleccionarMascotaJugador() {
 // Selección de mascota enemiga
 function seleccionarMascotaEnemiga() {
     let mascotaAleatorio = aleatorio(1, 6);
-    let mascotaEnemigo = "";
-
+    
+    // Eliminamos 'let' para usar la variable global
     switch (mascotaAleatorio) {
         case 1: mascotaEnemigo = "Hipodoge"; break;
         case 2: mascotaEnemigo = "Capipepo"; break;
@@ -70,7 +71,7 @@ function asignarAtaqueJugador(tipo) {
 
 // Ataque aleatorio del enemigo
 function ataqueAleatorioEnemigo() {
-    let ataqueAleatorio = aleatorio(1,3);
+    let ataqueAleatorio = aleatorio(1, 3);
 
     if (ataqueAleatorio == 1) ataqueEnemigo = 'FUEGO';
     else if (ataqueAleatorio == 2) ataqueEnemigo = 'AGUA';
@@ -81,9 +82,29 @@ function ataqueAleatorioEnemigo() {
 
 function crearMensaje() {
     let parrafo = document.createElement("p");
-    parrafo.innerHTML = "Tu mascota atacó con " + ataqueJugador + ", la mascota del enemigo atacó con " + ataqueEnemigo + ".";
+    // Agregado espacio antes del resultado
+    parrafo.innerHTML = "Tu mascota atacó con " + ataqueJugador + 
+                       ", la mascota del enemigo atacó con " + ataqueEnemigo + 
+                       " - " + determinarGanador();
     document.getElementById("mensaje").appendChild(parrafo);
+}
+
+function determinarGanador() {
+    let resultado = "";
+
+    if (ataqueJugador == ataqueEnemigo) {
+        resultado = "EMPATE";
+    } else if (
+        (ataqueJugador == 'FUEGO' && ataqueEnemigo == 'TIERRA') ||
+        (ataqueJugador == 'AGUA' && ataqueEnemigo == 'FUEGO') ||
+        (ataqueJugador == 'TIERRA' && ataqueEnemigo == 'AGUA')
+    ) {
+        resultado = "GANASTE";  
+    } else {
+        resultado = "PERDISTE";
+    }
     
+    return resultado; // ¡CRÍTICO! Faltaba el return
 }
 
 // Función para generar números aleatorios
