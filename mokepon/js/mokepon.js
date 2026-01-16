@@ -1,84 +1,95 @@
- let ataqueJugador
+let ataqueJugador;
+let ataqueEnemigo;
 
 function iniciarJuego() {
-    let botonMascotaJugador = document.getElementById('boton-mascota')
-    botonMascotaJugador.addEventListener('click', seleccionarMascotaJugador)
-    let btnFuego = document.getElementById('boton-fuego')
-    btnFuego.addEventListener('click', ataqueFuego)
-    let btnAgua = document.getElementById('boton-agua')
-    btnAgua.addEventListener('click', ataqueAgua)
-    let btnTierra = document.getElementById('boton-tierra')
-    btnTierra.addEventListener('click', ataqueTierra)
+    // Botones de mascota y ataques
+    let botonMascotaJugador = document.getElementById('boton-mascota');
+    botonMascotaJugador.addEventListener('click', seleccionarMascotaJugador);
+
+    document.getElementById('boton-fuego').addEventListener('click', ataqueFuego);
+    document.getElementById('boton-agua').addEventListener('click', ataqueAgua);
+    document.getElementById('boton-tierra').addEventListener('click', ataqueTierra);
 }
 
+// Selección de mascota del jugador
 function seleccionarMascotaJugador() {
-
     let hipoge = document.getElementById("hipodoge");
     let capipepo = document.getElementById("capipepo");
     let ratigueya = document.getElementById("ratigueya");
     let langoatelvis = document.getElementById("langoatelvis");
     let tucapalma = document.getElementById("tucapalma");
     let pydos = document.getElementById("pydos");
-    
 
-    if (hipoge.checked) {
-        document.getElementById("mascota-jugador").innerHTML = "Hipodoge";
-        
-    } else if (capipepo.checked) {
-        document.getElementById("mascota-jugador").innerHTML = "Capipepo";
-    } else if (ratigueya.checked) {
-        document.getElementById("mascota-jugador").innerHTML = "Ratigueya";
-    } else if (langoatelvis.checked) {
-        document.getElementById("mascota-jugador").innerHTML = "Langoatelvis";
-    } else if (tucapalma.checked) {
-        document.getElementById("mascota-jugador").innerHTML = "Tucapalma";
-    } else if (pydos.checked) {
-        document.getElementById("mascota-jugador").innerHTML = "Pydos";
-    } else {
+    let mascotaJugador = "";
+
+    if (hipoge.checked) mascotaJugador = "Hipodoge";
+    else if (capipepo.checked) mascotaJugador = "Capipepo";
+    else if (ratigueya.checked) mascotaJugador = "Ratigueya";
+    else if (langoatelvis.checked) mascotaJugador = "Langoatelvis";
+    else if (tucapalma.checked) mascotaJugador = "Tucapalma";
+    else if (pydos.checked) mascotaJugador = "Pydos";
+    else {
         alert("Por favor selecciona una mascota antes de continuar.");
+        return; // Sale de la función si no hay selección
     }
 
+    document.getElementById("mascota-jugador").innerHTML = mascotaJugador;
     seleccionarMascotaEnemiga();
 }
 
+// Selección de mascota enemiga
 function seleccionarMascotaEnemiga() {
-    let ataqueAleatorio = aleatorio(1, 6);
+    let mascotaAleatorio = aleatorio(1, 6);
     let mascotaEnemigo = "";
 
-    if (ataqueAleatorio == 1) {
-        document.getElementById("mascota-enemigo").innerHTML = "Hipodoge";
-    } else if (ataqueAleatorio == 2) {
-        document.getElementById("mascota-enemigo").innerHTML = "Capipepo";
-    } else if (ataqueAleatorio == 3) {
-        document.getElementById("mascota-enemigo").innerHTML = "Ratigueya";
-    } else if (ataqueAleatorio == 4) {
-        document.getElementById("mascota-enemigo").innerHTML = "Langoatelvis";
-    } else if (ataqueAleatorio == 5) {
-        document.getElementById("mascota-enemigo").innerHTML = "Tucapalma";
-    } else {
-        document.getElementById("mascota-enemigo").innerHTML = "Pydos";
+    switch (mascotaAleatorio) {
+        case 1: mascotaEnemigo = "Hipodoge"; break;
+        case 2: mascotaEnemigo = "Capipepo"; break;
+        case 3: mascotaEnemigo = "Ratigueya"; break;
+        case 4: mascotaEnemigo = "Langoatelvis"; break;
+        case 5: mascotaEnemigo = "Tucapalma"; break;
+        case 6: mascotaEnemigo = "Pydos"; break;
     }
+
+    document.getElementById("mascota-enemigo").innerHTML = mascotaEnemigo;
 }
 
- function ataqueFuego(){
-    ataqueJugador = 'FUEGO|'
-    alert(ataqueJugador)
- }
+// Ataques del jugador
+function ataqueFuego() { asignarAtaqueJugador('FUEGO'); }
+function ataqueAgua() { asignarAtaqueJugador('AGUA'); }
+function ataqueTierra() { asignarAtaqueJugador('TIERRA'); }
 
- function ataqueAgua(){
-    ataqueJugador = 'AGUA|'
-     alert(ataqueJugador)
- }
+function asignarAtaqueJugador(tipo) {
+    ataqueJugador = tipo;
+    ataqueAleatorioEnemigo();
 
- function ataqueTierra(){
-    ataqueJugador = 'TIERRA|'
-     alert(ataqueJugador)
- }
+    // Mostrar en consola los ataques actuales
+    console.log("Ataque del jugador:", ataqueJugador);
+    console.log("Ataque del enemigo:", ataqueEnemigo);
+}
 
-  function aleatorio(min, max) {
-        return Math.floor(Math.random() * (max - min + 1) + min)
-      }
+// Ataque aleatorio del enemigo
+function ataqueAleatorioEnemigo() {
+    let ataqueAleatorio = aleatorio(1,3);
 
-let mascotaSeleccionada = document.getElementById("boton-mascota");
-mascotaSeleccionada.addEventListener("click", seleccionarMascotaJugador);
+    if (ataqueAleatorio == 1) ataqueEnemigo = 'FUEGO';
+    else if (ataqueAleatorio == 2) ataqueEnemigo = 'AGUA';
+    else ataqueEnemigo = 'TIERRA';
 
+    crearMensaje();
+}
+
+function crearMensaje() {
+    let parrafo = document.createElement("p");
+    parrafo.innerHTML = "Tu mascota atacó con " + ataqueJugador + ", la mascota del enemigo atacó con " + ataqueEnemigo + ".";
+    document.getElementById("mensaje").appendChild(parrafo);
+    
+}
+
+// Función para generar números aleatorios
+function aleatorio(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+// Iniciar juego al cargar la página
+window.addEventListener("load", iniciarJuego);
