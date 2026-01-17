@@ -14,6 +14,10 @@ function iniciarJuego() {
     document.getElementById('boton-agua').addEventListener('click', ataqueAgua);
     document.getElementById('boton-tierra').addEventListener('click', ataqueTierra);
     
+    // Botón de reiniciar
+    let botonReiniciar = document.getElementById('boton-reiniciar');
+    botonReiniciar.addEventListener('click', reiniciarJuego);
+    
     // Mostrar vidas iniciales
     actualizarVidas();
 }
@@ -141,6 +145,47 @@ function deshabilitarBotones() {
     botonFuego.disabled = true;
     botonAgua.disabled = true;
     botonTierra.disabled = true;
+}
+
+function habilitarBotones() {
+    let botonFuego = document.getElementById("boton-fuego");
+    let botonAgua = document.getElementById("boton-agua");
+    let botonTierra = document.getElementById("boton-tierra");
+    
+    botonFuego.disabled = false;
+    botonAgua.disabled = false;
+    botonTierra.disabled = false;
+}
+
+function reiniciarJuego() {
+    // Reiniciar vidas
+    vidasJugador = 3;
+    vidasEnemigo = 3;
+    
+    // Reiniciar variables
+    ataqueJugador = undefined;
+    ataqueEnemigo = undefined;
+    mascotaJugador = undefined;
+    mascotaEnemigo = undefined;
+    
+    // Limpiar mensajes
+    document.getElementById("mensaje").innerHTML = "";
+    
+    // Limpiar selección de mascotas
+    document.getElementById("mascota-jugador").innerHTML = "";
+    document.getElementById("mascota-enemigo").innerHTML = "";
+    
+    // Desmarcar radio buttons
+    let inputs = document.querySelectorAll('input[type="radio"]');
+    inputs.forEach(input => {
+        input.checked = false;
+    });
+    
+    // Habilitar botones de ataque
+    habilitarBotones();
+    
+    // Actualizar vidas en pantalla
+    actualizarVidas();
 }
 
 function determinarGanador() {
