@@ -1,7 +1,9 @@
 let ataqueJugador;
 let ataqueEnemigo;
-let mascotaJugador; // Agregada como variable global
-let mascotaEnemigo; // Agregada como variable global
+let mascotaJugador;
+let mascotaEnemigo;
+let vidasJugador = 3; // Vidas iniciales del jugador
+let vidasEnemigo = 3; // Vidas iniciales del enemigo
 
 function iniciarJuego() {
     // Botones de mascota y ataques
@@ -11,6 +13,9 @@ function iniciarJuego() {
     document.getElementById('boton-fuego').addEventListener('click', ataqueFuego);
     document.getElementById('boton-agua').addEventListener('click', ataqueAgua);
     document.getElementById('boton-tierra').addEventListener('click', ataqueTierra);
+    
+    // Mostrar vidas iniciales
+    actualizarVidas();
 }
 
 // Selección de mascota del jugador
@@ -22,7 +27,6 @@ function seleccionarMascotaJugador() {
     let tucapalma = document.getElementById("tucapalma");
     let pydos = document.getElementById("pydos");
 
-    // Eliminamos 'let' para usar la variable global
     if (hipoge.checked) mascotaJugador = "Hipodoge";
     else if (capipepo.checked) mascotaJugador = "Capipepo";
     else if (ratigueya.checked) mascotaJugador = "Ratigueya";
@@ -31,7 +35,7 @@ function seleccionarMascotaJugador() {
     else if (pydos.checked) mascotaJugador = "Pydos";
     else {
         alert("Por favor selecciona una mascota antes de continuar.");
-        return; // Sale de la función si no hay selección
+        return;
     }
 
     document.getElementById("mascota-jugador").innerHTML = mascotaJugador;
@@ -42,7 +46,6 @@ function seleccionarMascotaJugador() {
 function seleccionarMascotaEnemiga() {
     let mascotaAleatorio = aleatorio(1, 6);
     
-    // Eliminamos 'let' para usar la variable global
     switch (mascotaAleatorio) {
         case 1: mascotaEnemigo = "Hipodoge"; break;
         case 2: mascotaEnemigo = "Capipepo"; break;
@@ -77,16 +80,67 @@ function ataqueAleatorioEnemigo() {
     else if (ataqueAleatorio == 2) ataqueEnemigo = 'AGUA';
     else ataqueEnemigo = 'TIERRA';
 
-    crearMensaje();
+    combate();
 }
 
-function crearMensaje() {
+function combate() {
+    let resultado = determinarGanador();
+    
+    // Disminuir vidas según el resultado
+    if (resultado == "GANASTE") {
+        vidasEnemigo--;
+    } else if (resultado == "PERDISTE") {
+        vidasJugador--;
+    }
+    // Si es empate, no se pierden vidas
+    
+    actualizarVidas();
+    crearMensaje(resultado);
+    revisarVidas();
+}
+
+function actualizarVidas() {
+    // Actualizar la visualización de vidas en el HTML
+    let spanVidasJugador = document.getElementById("vidas-jugador");
+    let spanVidasEnemigo = document.getElementById("vidas-enemigo");
+    
+    spanVidasJugador.innerHTML = vidasJugador;
+    spanVidasEnemigo.innerHTML = vidasEnemigo;
+}
+
+function revisarVidas() {
+    if (vidasJugador == 0) {
+        crearMensajeFinal("¡PERDISTE LA BATALLA! 😢");
+    } else if (vidasEnemigo == 0) {
+        crearMensajeFinal("¡GANASTE LA BATALLA! 🎉");
+    }
+}
+
+function crearMensaje(resultado) {
     let parrafo = document.createElement("p");
-    // Agregado espacio antes del resultado
     parrafo.innerHTML = "Tu mascota atacó con " + ataqueJugador + 
                        ", la mascota del enemigo atacó con " + ataqueEnemigo + 
-                       " - " + determinarGanador();
+                       " - " + resultado;
     document.getElementById("mensaje").appendChild(parrafo);
+}
+
+function crearMensajeFinal(resultadoFinal) {
+    let parrafo = document.createElement("p");
+    parrafo.innerHTML = resultadoFinal;
+    document.getElementById("mensaje").appendChild(parrafo);
+    
+    // Deshabilitar botones de ataque cuando termina el juego
+    deshabilitarBotones();
+}
+
+function deshabilitarBotones() {
+    let botonFuego = document.getElementById("boton-fuego");
+    let botonAgua = document.getElementById("boton-agua");
+    let botonTierra = document.getElementById("boton-tierra");
+    
+    botonFuego.disabled = true;
+    botonAgua.disabled = true;
+    botonTierra.disabled = true;
 }
 
 function determinarGanador() {
@@ -104,7 +158,7 @@ function determinarGanador() {
         resultado = "PERDISTE";
     }
     
-    return resultado; // ¡CRÍTICO! Faltaba el return
+    return resultado;
 }
 
 // Función para generar números aleatorios
