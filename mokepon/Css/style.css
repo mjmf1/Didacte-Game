@@ -1,0 +1,13 @@
+.titulo{
+    color: blue;
+    font-size: 2em;
+    text-align: center;
+}
+
+#seleccionar-mascota{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}

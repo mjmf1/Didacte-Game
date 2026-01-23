@@ -2,10 +2,17 @@ let ataqueJugador;
 let ataqueEnemigo;
 let mascotaJugador;
 let mascotaEnemigo;
-let vidasJugador = 3; // Vidas iniciales del jugador
-let vidasEnemigo = 3; // Vidas iniciales del enemigo
+let vidasJugador = 3;
+let vidasEnemigo = 3;
 
 function iniciarJuego() {
+    // Ocultar secciones al inicio
+    let sectionSeleccionarAtaque = document.getElementById('seleccionar-ataque');
+    sectionSeleccionarAtaque.style.display = 'none';
+
+    let sectionSeleccionarReiniciar = document.getElementById('reiniciar');
+    sectionSeleccionarReiniciar.style.display = 'none';
+
     // Botones de mascota y ataques
     let botonMascotaJugador = document.getElementById('boton-mascota');
     botonMascotaJugador.addEventListener('click', seleccionarMascotaJugador);
@@ -22,8 +29,15 @@ function iniciarJuego() {
     actualizarVidas();
 }
 
-// Selección de mascota del jugador
 function seleccionarMascotaJugador() {
+    // Mostrar sección de ataques
+    let sectionSeleccionarAtaque = document.getElementById('seleccionar-ataque');
+    sectionSeleccionarAtaque.style.display = 'block';
+
+    // Ocultar sección de selección de mascota
+    let sectionSeleccionarMascota = document.getElementById('seleccionar-mascota');
+    sectionSeleccionarMascota.style.display = 'none';
+
     let hipoge = document.getElementById("hipodoge");
     let capipepo = document.getElementById("capipepo");
     let ratigueya = document.getElementById("ratigueya");
@@ -39,6 +53,9 @@ function seleccionarMascotaJugador() {
     else if (pydos.checked) mascotaJugador = "Pydos";
     else {
         alert("Por favor selecciona una mascota antes de continuar.");
+        // Volver a mostrar la sección de mascota si no seleccionó
+        sectionSeleccionarMascota.style.display = 'block';
+        sectionSeleccionarAtaque.style.display = 'none';
         return;
     }
 
@@ -46,7 +63,6 @@ function seleccionarMascotaJugador() {
     seleccionarMascotaEnemiga();
 }
 
-// Selección de mascota enemiga
 function seleccionarMascotaEnemiga() {
     let mascotaAleatorio = aleatorio(1, 6);
     
@@ -62,21 +78,23 @@ function seleccionarMascotaEnemiga() {
     document.getElementById("mascota-enemigo").innerHTML = mascotaEnemigo;
 }
 
-// Ataques del jugador
-function ataqueFuego() { asignarAtaqueJugador('FUEGO'); }
-function ataqueAgua() { asignarAtaqueJugador('AGUA'); }
-function ataqueTierra() { asignarAtaqueJugador('TIERRA'); }
+function ataqueFuego() { 
+    asignarAtaqueJugador('FUEGO'); 
+}
+
+function ataqueAgua() { 
+    asignarAtaqueJugador('AGUA'); 
+}
+
+function ataqueTierra() { 
+    asignarAtaqueJugador('TIERRA'); 
+}
 
 function asignarAtaqueJugador(tipo) {
     ataqueJugador = tipo;
     ataqueAleatorioEnemigo();
-
-    // Mostrar en consola los ataques actuales
-    console.log("Ataque del jugador:", ataqueJugador);
-    console.log("Ataque del enemigo:", ataqueEnemigo);
 }
 
-// Ataque aleatorio del enemigo
 function ataqueAleatorioEnemigo() {
     let ataqueAleatorio = aleatorio(1, 3);
 
@@ -96,7 +114,6 @@ function combate() {
     } else if (resultado == "PERDISTE") {
         vidasJugador--;
     }
-    // Si es empate, no se pierden vidas
     
     actualizarVidas();
     crearMensaje(resultado);
@@ -104,7 +121,6 @@ function combate() {
 }
 
 function actualizarVidas() {
-    // Actualizar la visualización de vidas en el HTML
     let spanVidasJugador = document.getElementById("vidas-jugador");
     let spanVidasEnemigo = document.getElementById("vidas-enemigo");
     
@@ -133,8 +149,12 @@ function crearMensajeFinal(resultadoFinal) {
     parrafo.innerHTML = resultadoFinal;
     document.getElementById("mensaje").appendChild(parrafo);
     
-    // Deshabilitar botones de ataque cuando termina el juego
+    // Deshabilitar botones de ataque
     deshabilitarBotones();
+
+    // Mostrar sección de reiniciar
+    let sectionSeleccionarReiniciar = document.getElementById('reiniciar');
+    sectionSeleccionarReiniciar.style.display = 'block';
 }
 
 function deshabilitarBotones() {
@@ -186,6 +206,18 @@ function reiniciarJuego() {
     
     // Actualizar vidas en pantalla
     actualizarVidas();
+    
+    // Mostrar sección de selección de mascota
+    let sectionSeleccionarMascota = document.getElementById('seleccionar-mascota');
+    sectionSeleccionarMascota.style.display = 'block';
+    
+    // Ocultar sección de ataque
+    let sectionSeleccionarAtaque = document.getElementById('seleccionar-ataque');
+    sectionSeleccionarAtaque.style.display = 'none';
+    
+    // Ocultar sección de reiniciar
+    let sectionSeleccionarReiniciar = document.getElementById('reiniciar');
+    sectionSeleccionarReiniciar.style.display = 'none';
 }
 
 function determinarGanador() {
@@ -206,10 +238,8 @@ function determinarGanador() {
     return resultado;
 }
 
-// Función para generar números aleatorios
 function aleatorio(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-// Iniciar juego al cargar la página
 window.addEventListener("load", iniciarJuego);
