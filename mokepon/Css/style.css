@@ -1,9 +1,10 @@
-.titulo{
-    color: blue;
-    font-size: 2em;
-    text-align: center;
-}
 
+body{
+    background-color: #041562;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+}
 #seleccionar-mascota{
     display: flex;
     flex-direction: column;
@@ -11,15 +12,50 @@
     align-items: center;
     
 }
+
+.subtitulo{
+    color: white;
+    font-size: 32px;
+
+}
+.titulo{
+    color: blue;
+    font-size: 2em;
+    text-align: center;
+}
 .tarjeta-mokepon{
-        width: 100px;
+    width: 180px;
     height: 100px;
-    background: aqua;
+    background: #11468f;
     padding: 10px;
     box-sizing: border-box;
     margin: 10px;
     border: 1px solid black;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+.tarjeta-mokepon img{
+    width: 80px;
+    height: 80px;
+}
+
+.contenedor-tarjetas{
+    display: flex;
+    gap: 10px;
 }
 input{
     display: none;
+}
+
+#boton-mascota{
+    width: 100px;
+    height: 50px;
+    background-color: blue;
+    border: 1px solid red;
+    padding: 10px;
+    margin: 10px;
+    
 }
