@@ -1,9 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 body{
     background-color: #041562;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-    padding: 0;
+    font-family: "Poppins", sans-serif;
+    font-weight: 200;
+    font-style: normal;
 }
 #seleccionar-mascota{
     display: flex;
@@ -22,6 +24,7 @@ body{
     color: blue;
     font-size: 2em;
     text-align: center;
+      font-family: "Fredoka", sans-serif;
 }
 .tarjeta-mokepon{
     width: 180px;
@@ -51,11 +54,13 @@ input{
 }
 
 #boton-mascota{
-    width: 100px;
+    width: 150px;
     height: 50px;
-    background-color: blue;
-    border: 1px solid red;
+    background: transparent;
+    border: 2px solid white;
     padding: 10px;
-    margin: 10px;
+    margin-top: 30px;
+    border-radius: 10px;
+    color: white;
     
 }
