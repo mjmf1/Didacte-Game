@@ -32,7 +32,7 @@ function iniciarJuego() {
 function seleccionarMascotaJugador() {
     // Mostrar sección de ataques
     let sectionSeleccionarAtaque = document.getElementById('seleccionar-ataque');
-    sectionSeleccionarAtaque.style.display = 'block';
+    sectionSeleccionarAtaque.style.display = 'flex';
 
     // Ocultar sección de selección de mascota
     let sectionSeleccionarMascota = document.getElementById('seleccionar-mascota');
