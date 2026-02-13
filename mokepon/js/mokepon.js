@@ -137,24 +137,78 @@ function revisarVidas() {
 }
 
 function crearMensaje(resultado) {
-    let parrafo = document.createElement("p");
-    parrafo.innerHTML = "Tu mascota atacó con " + ataqueJugador + 
-                       ", la mascota del enemigo atacó con " + ataqueEnemigo + 
-                       " - " + resultado;
-    document.getElementById("mensaje").appendChild(parrafo);
+    let containerMensaje = document.createElement("div");
+    containerMensaje.style.cssText = "background-color: rgba(255, 255, 255, 0.1); padding: 15px; border-radius: 10px; margin: 10px 0; width: 100%; text-align: center; border: 2px solid rgba(255, 255, 255, 0.2);";
+    
+    let resultadoRound = document.createElement("p");
+    let nuevoAtaqueJugador = document.createElement("p");
+    let nuevoAtaqueEnemigo = document.createElement("p");
+
+    resultadoRound.innerHTML = resultado;
+    nuevoAtaqueJugador.innerHTML = "🎮 Tu mascota atacó con: " + ataqueJugador;
+    nuevoAtaqueEnemigo.innerHTML = "🤖 Enemigo atacó con: " + ataqueEnemigo;
+    
+    // Estilo del resultado (grande y destacado)
+    resultadoRound.style.margin = "0 0 15px 0";
+    resultadoRound.style.fontSize = "1.8em";
+    resultadoRound.style.fontWeight = "bold";
+    resultadoRound.style.padding = "10px";
+    resultadoRound.style.borderRadius = "8px";
+    
+    nuevoAtaqueJugador.style.margin = "5px 0";
+    nuevoAtaqueEnemigo.style.margin = "5px 0";
+    
+    // Color y fondo según resultado
+    if (resultado === "GANASTE") {
+        resultadoRound.style.color = "#90EE90";
+        resultadoRound.style.backgroundColor = "rgba(144, 238, 144, 0.2)";
+    } else if (resultado === "PERDISTE") {
+        resultadoRound.style.color = "#FF6B6B";
+        resultadoRound.style.backgroundColor = "rgba(255, 107, 107, 0.2)";
+    } else {
+        resultadoRound.style.color = "#FFD700";
+        resultadoRound.style.backgroundColor = "rgba(255, 215, 0, 0.2)";
+    }
+    
+    // Agregar en orden: resultado primero (grande), luego los ataques
+    containerMensaje.appendChild(resultadoRound);
+    containerMensaje.appendChild(nuevoAtaqueJugador);
+    containerMensaje.appendChild(nuevoAtaqueEnemigo);
+    
+    // Usar prepend para agregar al principio
+    document.getElementById("mensaje").prepend(containerMensaje);
 }
 
 function crearMensajeFinal(resultadoFinal) {
-    let parrafo = document.createElement("p");
-    parrafo.innerHTML = resultadoFinal;
-    document.getElementById("mensaje").appendChild(parrafo);
+    let containerFinal = document.createElement("div");
+    containerFinal.className = "container-final";
+    
+    let mensajeFinal = document.createElement("div");
+    
+    // Aplicar clase según ganaste o perdiste
+    let esGanador = resultadoFinal.includes("GANASTE");
+    mensajeFinal.className = esGanador ? "mensaje-final-victoria" : "mensaje-final-derrota";
+    mensajeFinal.innerHTML = resultadoFinal;
+    
+    // Crear botón de reiniciar con clase CSS
+    let botonReiniciar = document.createElement("button");
+    botonReiniciar.className = "boton-reiniciar-mejorado";
+    botonReiniciar.innerHTML = "🔄 Jugar de Nuevo";
+    botonReiniciar.onclick = reiniciarJuego;
+    
+    // Agregar mensaje y botón al contenedor
+    containerFinal.appendChild(mensajeFinal);
+    containerFinal.appendChild(botonReiniciar);
+    
+    // Insertar al principio del área de mensajes
+    document.getElementById("mensaje").prepend(containerFinal);
     
     // Deshabilitar botones de ataque
     deshabilitarBotones();
-
-    // Mostrar sección de reiniciar
+    
+    // Ocultar el botón de reiniciar original
     let sectionSeleccionarReiniciar = document.getElementById('reiniciar');
-    sectionSeleccionarReiniciar.style.display = 'block';
+    sectionSeleccionarReiniciar.style.display = 'none';
 }
 
 function deshabilitarBotones() {

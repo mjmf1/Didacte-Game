@@ -55,17 +55,6 @@
         </label>
         <input type="radio" name="mascota" id="pydos">
         </div>
-
-
-        
-
-        <!--- Mascotas 
-         Hipodoge -> Agua
-        Capipepo -> Tierra
-        Ratigueya -> Fuego
-        Langoatelvis -> Agua y Fuego 
-        Tucapalma -> Tierra y Agua
-        Pydos -> Fuego y Tierra -->
        
 
         <button id="boton-mascota">
@@ -78,9 +67,15 @@
 
          <h2 class="subtitulo">Elige tu ataque:</h2>
 
+        <div>
+
+        <div id="ataqueJugador"></div>
+        <div id="ataqueEnemigo"></div>
 
         <p>Tu mascota <span id="mascota-jugador"></span> tiene <span id="vidas-jugador">3</span> vidas</p>
         <p>La mascota <span id="mascota-enemigo"></span> del enemigo tiene <span id="vidas-enemigo">3</span> vidas</p>
+
+        </div>
 
        <div>
             <button id="boton-fuego" class="boton-ataque">Fuego</button>
@@ -89,9 +84,9 @@
        </div>
 
     </section>
-
+<div>
     <section id="mensaje">
-        
+        <div id="resultado"></div>
     </section>
 
     <section id="reiniciar">
@@ -99,7 +94,8 @@
         <button id="boton-reiniciar">Reiniciar</button>
         
     </section>
-    
+
+</div>
      <script src="./js/mokepon.js"></script>
      
   </body>
