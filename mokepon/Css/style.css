@@ -197,3 +197,9 @@ input {
 .boton-reiniciar-mejorado:active {
     transform: translateY(0);
 }
+
+.ataques{
+    display: grid;
+    grid-template-columns: 100px 100px;
+    justify-items: center;
+}
